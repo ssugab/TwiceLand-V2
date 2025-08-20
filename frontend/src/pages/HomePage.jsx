@@ -1,6 +1,7 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import LatestComeback from '../components/LatestUpdates'
+import LatestComeback from '../components/LatestComeback'
+import LatestUpdate from '../components/LatestUpdate'
 import Members from '../components/MembersSection'
 
 const HomePage = () => {
@@ -9,6 +10,7 @@ const HomePage = () => {
 
       <Hero />
       <LatestComeback />
+      <LatestUpdate />
       <Members />
 
     </div>

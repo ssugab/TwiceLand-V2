@@ -38,7 +38,7 @@
   }
 
   /* Rise animation for background */
-  --animate-rise: rise 1.5s ease-out forwards;
+  --animate-rise: rise 2s ease-out forwards;
 
   @keyframes rise {
     0% { transform: translateY(100%); }
@@ -54,3 +54,6 @@
 
 }
 
+html {
+    scroll-behavior: smooth;
+}
