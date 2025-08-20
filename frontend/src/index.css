@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Milligram";
+    src: url('./assets/fonts/Milligram-Macro-Bold-trial.ttf');
+}
+
+@font-face {
+    font-family: "Mont";
+    src: url('./assets/fonts/Mont-HeavyDEMO.otf');
+}
+
+@font-face {
+    font-family: "Couture";
+    src: url('./assets/fonts/couture-bld.otf');
+}
+
+@theme {
+  --color-accent: #FE7BA3;
+  --color-accent2: #FCCFA6;
+  --color-offwhite: #FAF9F6;
+  --color-offwhite2: #fffff2;
+  --color-matteblack: #29232E;
+  --color-offwhite3: #f9f1f1;
+    --font-title: "Milligram", "sans-serif";
+  --font-subtitle: "Mont", "sans-serif";
+  --font-display: "Couture", "sans-serif";
+  --font-display-bold: "Mont", "sans-serif";
+
+  --gradient-twice: linear-gradient(270deg, var(--color-accent), var(--color-accent2), var(--color-offwhite2), var(--color-accent2),
+  var(--color-accent));
+
+  --animate-gradient-vibrant: gradientVibrant 3s linear infinite alternate;
+
+  @keyframes gradientVibrant {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* Rise animation for background */
+  --animate-rise: rise 1.5s ease-out forwards;
+
+  @keyframes rise {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-20px); }
+  }
+
+  @keyframes contentShift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); } /* turun 40px */
+}
+
+--animate-content-shift: contentShift 1.5s ease-out forwards;
+
+}
+
