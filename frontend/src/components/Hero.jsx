@@ -3,8 +3,11 @@ import { assets } from '../assets/assets'
 
 const Hero = () => {
   return (
-    <div className='relative h-screen md:h-[600px] lg:h-[700px] w-full'>
-      <img src={assets.Hero} alt="Hero" className='rounded-4xl absolute inset-0 p-3 h-full w-full object-cover'/>
+    <div className='relative h-screen md:h-[600px] lg:h-[700px] w-full p-3'>
+
+      <div className='relative h-full w-full rounded-4xl drop-shadow-lg/30'>
+        <img src={assets.Hero} alt="Hero" className='rounded-4xl h-full w-full object-cover'/>
+      </div>
       
       <div className='absolute z-10 top-1/3 left-12'>
         <h2 className='text-lg md:text-xl font-display-bold text-offwhite'>Welcome To</h2>
