@@ -146,7 +146,7 @@ const LatestUpdates = () => {
 
   return (
     <section
-      className="relative pt-24 pb-32 px-4 sm:px-6 md:px-12 overflow-hidden"
+      className="relative pt-32 pb-32 px-4 sm:px-6 md:px-12 overflow-hidden"
       style={{ backgroundColor: '#FF9A6C' }} // Solid Modern Apricot Background (NO dark glass)
     >
       {/* Top Gradient Bridge: Fading in from Modern Dark Glass (#120E16) to Solid Apricot */}
@@ -246,8 +246,8 @@ const LatestUpdates = () => {
               key={member}
               onClick={() => setSelectedMember(member)}
               className={`px-3.5 py-1 rounded-full text-xs font-heading transition-all duration-200 cursor-pointer shrink-0 border ${selectedMember === member
-                  ? 'bg-matteblack text-white border-matteblack shadow-md'
-                  : 'bg-white/40 text-matteblack border-black/10 hover:bg-white hover:text-matteblack'
+                ? 'bg-matteblack text-white border-matteblack shadow-md'
+                : 'bg-white/40 text-matteblack border-black/10 hover:bg-white hover:text-matteblack'
                 }`}
             >
               {member}
