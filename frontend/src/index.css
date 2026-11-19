@@ -20,8 +20,9 @@
 
 @theme {
   /* TWICE Colors: Kept #FCCFA6 as requested, calibrated Neon Magenta and Obsidian Dark Base */
-  --color-accent: #FF5FA2;
-  --color-accent2: #FCCFA6;
+  --color-accent: #FF337A;
+  /* #FF5FA2; */
+  --color-accent2: #FCC89B;
   --color-offwhite: #FAF9F6;
   --color-offwhite2: #fffff2;
   --color-offwhite3: #f9f1f1;
