@@ -9,11 +9,6 @@ import dahyunImg from '../assets/images/Members/Dahyun-TEN.jpg'
 import chaeyoungImg from '../assets/images/Members/Chaeyoung-TEN.jpg'
 import tzuyuImg from '../assets/images/Members/Tzuyu-TEN.jpg'
 
-/**
- * 9 TWICE Members Data:
- * Now linked to individual lightweight member photos from `assets/images/Members/`
- * (~150KB each instead of multi-megabyte shared photos).
- */
 const membersData = [
   {
     name: 'Nayeon',
@@ -102,11 +97,11 @@ const membersData = [
  * MembersSection Component
  * 
  * Features:
- * 1. Base: Modern Dark Glass (#120E16) smoothly connecting from Solid Apricot.
- * 2. High-performance Sliding Gallery with smooth swipe/drag and arrow navigation.
- * 3. Individual member portrait loading with `loading="lazy"`.
- * 4. Bottom transition: Fades smoothly from Dark Glass (#120E16) into SOLID MODERN MAGENTA (#FF337A)
- *    for the Showcase/Footer!
+ * 1. Background fluida WebGL interaktif (Lightswind AnimatedFlow) dengan palet resmi TWICE.
+ * 2. High-performance Sliding Gallery dengan kartu-kartu frosted glass yang melayang di atas fluida.
+ * 3. TOP TRANSITION: Fades in organically from Solid Apricot (#FF9A6C) di LatestUpdates.
+ * 4. BOTTOM TRANSITION: Safe buffer spacing mencegah warna magenta memotong bagian bawah kartu member,
+ *    lalu memudar mulus ke SOLID MODERN MAGENTA (#FF337A) untuk Footer.
  */
 const MembersSection = () => {
   const scrollContainerRef = useRef(null)
@@ -119,30 +114,27 @@ const MembersSection = () => {
   }
 
   return (
-    <section className="relative pt-24 pb-32 px-4 sm:px-6 md:px-12 bg-matteblack overflow-hidden">
-      {/* Subtle GPU-efficient ambient glow */}
+    <section id="members" className="relative overflow-hidden bg-matteblack pt-32 pb-48 px-4 sm:px-6 md:px-12">
+      {/* TOP TRANSITION BRIDGE: Menyambungkan warna Solid Apricot (#FF9A6C) dari Latest Updates */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(255,95,162,0.12) 0%, rgba(18,14,22,0) 70%)'
-        }}
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-20"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Section Header with Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-4 border-b border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-4 border-b border-white/20">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="w-8 h-[2px] bg-accent" />
-              <span className="text-xs md:text-sm font-heading tracking-widest uppercase text-accent">
+              <span className="w-8 h-[2px] bg-accent2" />
+              <span className="text-xs md:text-sm font-heading tracking-widest uppercase text-accent2 font-bold">
                 The Nine Members
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading text-offwhite">
               Meet TWICE
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-offwhite/60 font-body max-w-lg">
+            <p className="mt-2 text-sm sm:text-base text-offwhite/75 font-body max-w-lg">
               Nine unique personalities, voices, and talents united as one global phenomenon.
             </p>
           </div>
@@ -152,14 +144,14 @@ const MembersSection = () => {
             <button
               onClick={() => handleScroll('left')}
               aria-label="Scroll members left"
-              className="w-12 h-12 rounded-full bg-white/[0.05] hover:bg-accent border border-white/15 hover:border-accent text-offwhite flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-[0_0_15px_rgba(255,95,162,0.5)] cursor-pointer"
+              className="w-12 h-12 rounded-full bg-white/[0.08] hover:bg-accent border border-white/20 hover:border-accent text-offwhite flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(255,95,162,0.6)] cursor-pointer backdrop-blur-md"
             >
               ←
             </button>
             <button
               onClick={() => handleScroll('right')}
               aria-label="Scroll members right"
-              className="w-12 h-12 rounded-full bg-white/[0.05] hover:bg-accent border border-white/15 hover:border-accent text-offwhite flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-[0_0_15px_rgba(255,95,162,0.5)] cursor-pointer"
+              className="w-12 h-12 rounded-full bg-white/[0.08] hover:bg-accent border border-white/20 hover:border-accent text-offwhite flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(255,95,162,0.6)] cursor-pointer backdrop-blur-md"
             >
               →
             </button>
@@ -169,38 +161,38 @@ const MembersSection = () => {
         {/* Sliding Gallery Scroll Track (Touch Swipe + Smooth Scroll) */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pb-8 pt-2 scroll-smooth no-scrollbar snap-x snap-mandatory"
+          className="flex gap-8 overflow-x-auto pb-8 pt-2 scroll-smooth no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {membersData.map((member, index) => (
             <div
               key={member.name}
-              className="snap-start shrink-0 w-[290px] sm:w-[330px] rounded-3xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-accent/40 backdrop-blur-md overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_16px_36px_rgba(0,0,0,0.5)] flex flex-col justify-between"
+              className="snap-start shrink-0 w-[290px] sm:w-[250px] rounded-3xl bg-white/[0.06] hover:bg-white/[0.10] border border-white/20 hover:border-accent/60 backdrop-blur-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2  flex flex-col justify-between"
             >
               {/* Member Visual Box */}
-              <div className="relative h-110 w-full overflow-hidden bg-white/5">
+              <div className="relative h-80 w-full overflow-hidden bg-white/5">
                 <img
                   src={member.image}
                   alt={member.name}
                   loading="lazy"
-                  className="w-full h-full object-cover object-top filter brightness-[0.9] group-hover:scale-105 group-hover:brightness-100 transition-all duration-500 ease-out"
+                  className="w-full h-full object-cover object-top filter brightness-[0.92] group-hover:scale-105 group-hover:brightness-100 transition-all duration-500 ease-out"
                 />
 
                 {/* Gradient Scrim for crisp readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-matteblack via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-matteblack/95 via-transparent to-transparent pointer-events-none" />
 
                 {/* Number Badge */}
-                <span className="absolute top-4 left-4 text-xs font-heading px-3 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/10 text-offwhite/90">
+                <span className="absolute top-4 left-4 text-xs font-heading px-3 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/20 text-offwhite/90 font-bold">
                   #{String(index + 1).padStart(2, '0')}
                 </span>
 
                 {/* Official Member Color Pill */}
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/15">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/20">
                   <span
                     className="w-2.5 h-2.5 rounded-full border border-black/30"
                     style={{ backgroundColor: member.colorHex }}
                   />
-                  <span className="text-[10px] font-heading text-offwhite/90 uppercase">
+                  <span className="text-[10px] font-heading text-offwhite/90 uppercase font-bold">
                     {member.colorName}
                   </span>
                 </div>
@@ -212,33 +204,33 @@ const MembersSection = () => {
               </div>
 
               {/* Card Details */}
-              < div className="p-6 flex-1 flex flex-col justify-between" >
+              <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-baseline justify-between mb-1">
-                    <h3 className="text-2xl font-title text-offwhite group-hover:text-accent transition-colors">
+                    <h3 className="text-2xl font-display-bold text-offwhite group-hover:text-accent transition-colors">
                       {member.name}
                     </h3>
-                    <span className="text-sm font-heading text-accent2">
+                    <span className="text-sm font-heading text-accent2 font-bold">
                       {member.hangul}
                     </span>
                   </div>
 
-                  <p className="text-xs font-heading text-accent2/90 mb-3 tracking-wide">
+                  <p className="text-xs font-heading text-accent2/90 mb-3 tracking-wide font-bold">
                     {member.role}
                   </p>
 
-                  <p className="text-xs sm:text-sm text-offwhite/70 font-body leading-relaxed line-clamp-3">
+                  <p className="text-xs sm:text-sm text-offwhite/75 font-body leading-relaxed line-clamp-3">
                     {member.description}
                   </p>
                 </div>
 
                 {/* Bottom Card Footer */}
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-heading">
-                  <span className="text-offwhite/40 uppercase tracking-wider">
+                <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between text-xs font-heading">
+                  <span className="text-offwhite/50 uppercase tracking-wider font-semibold">
                     Twice Profile
                   </span>
-                  <span className="text-accent group-hover:translate-x-1 transition-transform duration-200">
-                    Explore →
+                  <span className="text-accent group-hover:translate-x-1 transition-transform duration-200 font-bold">
+                    Explore → {/* Lead to Profile Page, then if user want to return or exit profile detail, the page will stay in Profile page*/}
                   </span>
                 </div>
               </div>
@@ -248,20 +240,22 @@ const MembersSection = () => {
         </div>
 
         {/* Swipe Hint for Mobile Viewports */}
-        <p className="text-center text-xs font-body text-offwhite/40 mt-2 block sm:hidden">
+        <p className="text-center text-xs font-body text-offwhite/50 mt-4 block sm:hidden">
           ← Swipe to meet all members →
         </p>
 
-      </div >
+      </div>
 
-      {/* Seamless Transition Bridge: Fading from Dark Glass (#120E16) directly into SOLID MODERN MAGENTA (#FF337A) */}
+      {/* BOTTOM TRANSITION BRIDGE: Memudar halus dari Dark Glass ke SOLID MAGENTA (#FF337A)
+            Multi-stop gradient: dark glass → dissolve → menghilang, Footer akan overlay dengan magenta */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 pointer-events-none z-20"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #FF337A 100%)'
+          height: '12rem',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(18,14,22,0.4) 30%, rgba(18,14,22,0.8) 65%, #120E16 90%, #120E16 100%)'
         }}
       />
-    </section >
+    </section>
   )
 }
 
