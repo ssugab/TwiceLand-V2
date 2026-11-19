@@ -178,7 +178,7 @@ const MembersSection = () => {
               className="snap-start shrink-0 w-[290px] sm:w-[330px] rounded-3xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-accent/40 backdrop-blur-md overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_16px_36px_rgba(0,0,0,0.5)] flex flex-col justify-between"
             >
               {/* Member Visual Box */}
-              <div className="relative h-80 w-full overflow-hidden bg-white/5">
+              <div className="relative h-110 w-full overflow-hidden bg-white/5">
                 <img
                   src={member.image}
                   alt={member.name}

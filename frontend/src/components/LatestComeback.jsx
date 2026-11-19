@@ -2,95 +2,102 @@ import React from "react"
 import { motion } from "framer-motion"
 import { assets } from "../assets/assets"
 
-/**
- * LatestComeback Component
- * 
- * Performance & Style Notes:
- * 1. Background uses lightweight CSS radial gradients instead of heavy blur-[140px] divs,
- *    keeping mobile scrolling at a solid 60fps.
- * 2. Seamless Transition: Starts in Modern Dark Glass (#120E16) and ends with a smooth
- *    fade into Warm Apricot Atmosphere (#251614) for LatestUpdates.
- */
 const LatestComeback = () => {
   return (
     <section
       id="latest-comeback"
-      className="relative pt-20 pb-28 px-4 sm:px-6 md:px-12 bg-matteblack overflow-hidden"
+      className="relative py-16 px-4 sm:px-6 md:px-12 bg-matteblack overflow-hidden"
     >
-      {/* GPU-efficient ambient glows: uses opacity and transform, avoiding heavy blur filters */}
-      <div
-        className="absolute top-1/4 -left-32 w-[450px] h-[450px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,95,162,0.18) 0%, rgba(18,14,22,0) 70%)'
+      {/* Decorative ambient background glows with subtle floating animation */}
+      <motion.div
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.15, 0.22, 0.15]
         }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 -left-32 w-96 h-96 bg-accent rounded-full blur-3xl pointer-events-none"
       />
-      < div
-        className="absolute bottom-12 -right-32 w-[450px] h-[450px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(252,207,166,0.14) 0%, rgba(18,14,22,0) 70%)'
+      <motion.div
+        animate={{
+          scale: [1.1, 1, 1.1],
+          opacity: [0.10, 0.18, 0.10]
         }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 -right-32 w-96 h-96 bg-accent2 rounded-full blur-3xl pointer-events-none"
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section Header */}
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header with Stagger Reveal */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex items-center gap-3 mb-8"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-3 mb-6"
         >
           <span className="w-8 h-[2px] bg-accent" />
           <h2 className="text-xs md:text-sm font-heading tracking-widest uppercase text-accent">
-            Current Era
+            LATEST COMEBACK
           </h2>
         </motion.div>
 
-        {/* Modern Dark Glass Showcase Container */}
+        {/* Modern Dark Glass Showcase Container with Viewport Entrance */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 backdrop-blur-md shadow-2xl"
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 backdrop-blur-xl shadow-2xl"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
 
-            {/* Left Column: Media with subtle scale on hover */}
+            {/* Left Column: Media / Album Artwork with Smooth Depth Reveal */}
             <div className="relative lg:col-span-7 h-72 sm:h-96 lg:h-auto overflow-hidden">
               <motion.img
-                src={assets.cb}
+                src={assets.cb}                   //DB latest CB Image
                 alt="TWICE Latest Comeback"
-                loading="lazy"
                 className="w-full h-full object-cover object-center filter brightness-[0.9]"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-matteblack/90 via-matteblack/30 lg:bg-gradient-to-r lg:from-transparent lg:to-matteblack/90 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-matteblack/90 via-matteblack/30 lg:bg-gradient-to-r lg:from-transparent lg:to-matteblack/50 pointer-events-none" />
 
-              <div className="absolute top-6 left-6 px-3.5 py-1.5 rounded-full bg-matteblack/60 backdrop-blur-md border border-white/15 text-xs font-heading text-accent2 uppercase tracking-wider">
-                Special Release
-              </div>
+              {/* Badge Overlay with Motion Fade */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="absolute top-6 left-6 px-3.5 py-1.5 rounded-full bg-matteblack/60 backdrop-blur-md border border-white/15 text-xs font-heading text-accent2 uppercase tracking-wider"
+              >
+                Special Release       {/* YEAR OF RELEASE */}
+              </motion.div>
             </div>
 
             {/* Right Column: Album Details & Actions */}
-            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+              className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between"
+            >
               <div>
                 <span className="text-xs sm:text-sm font-heading text-accent2 uppercase tracking-widest block mb-2">
-                  TWICE 4th Full Album
+                  TWICE 4th Full Album {/* DB ALBUM NAME */}
                 </span>
 
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-title text-offwhite leading-none mb-4">
-                  THIS IS FOR
+                  THIS IS FOR   {/* DB ALBUM TITLE */}
                 </h1>
 
                 <p className="text-offwhite/70 font-body text-sm sm:text-base leading-relaxed mb-6">
-                  Experience the powerful vocals, dynamic choreography, and unforgettable melodies from TWICE's latest worldwide chapter.
+                  Experience the powerful vocals, dynamic choreography, and unforgettable melodies from TWICE's latest worldwide chapter.  {/* DB ALBUM DESCRIPTION */}
                 </p>
 
-                {/* Primary Stream Button with high contrast & tactile spring */}
+                {/* Primary Stream Button with Tactile Motion Feedback */}
                 <motion.a
-                  href="https://open.spotify.com/artist/7n2YcHowBYUVWzKQ4b3CJ7"
+                  href="https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0?si=z18G5tgHR6yixKlt_QmL_g"
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ scale: 1.03 }}
@@ -102,7 +109,7 @@ const LatestComeback = () => {
                 </motion.a>
               </div>
 
-              {/* YouTube Video Preview Card */}
+              {/* Polished Video Preview Card with Motion Spring on Hover */}
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-xs font-heading text-offwhite/60 uppercase tracking-wider mb-3">
                   Featured Music Video
@@ -131,19 +138,11 @@ const LatestComeback = () => {
                 </motion.a>
               </div>
 
-            </div>
+            </motion.div>
 
           </div>
         </motion.div >
       </div >
-
-      {/* Seamless Transition Bridge: Fading from Dark Glass into Warm Apricot Atmosphere (#251614) */}
-      < div
-        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #251614 100%)'
-        }}
-      />
     </section >
   )
 }

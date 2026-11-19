@@ -1,59 +1,143 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: "Milligram";
-    src: url('./assets/fonts/Milligram-Macro-Bold-trial.ttf');
+  font-family: "Milligram";
+  src: url('./assets/fonts/Milligram-Macro-Bold-trial.ttf');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Mont";
-    src: url('./assets/fonts/Mont-HeavyDEMO.otf');
+  font-family: "Mont";
+  src: url('./assets/fonts/Mont-HeavyDEMO.otf');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Couture";
-    src: url('./assets/fonts/couture-bld.otf');
+  font-family: "Couture";
+  src: url('./assets/fonts/couture-bld.otf');
+  font-display: swap;
 }
 
 @theme {
-  --color-accent: #FE7BA3;
+  /* TWICE Colors: Kept #FCCFA6 as requested, calibrated Neon Magenta and Obsidian Dark Base */
+  --color-accent: #FF5FA2;
   --color-accent2: #FCCFA6;
   --color-offwhite: #FAF9F6;
   --color-offwhite2: #fffff2;
-  --color-matteblack: #29232E;
   --color-offwhite3: #f9f1f1;
-    --font-title: "Milligram", "sans-serif";
-  --font-subtitle: "Mont", "sans-serif";
-  --font-display: "Couture", "sans-serif";
-  --font-display-bold: "Mont", "sans-serif";
 
-  --gradient-twice: linear-gradient(270deg, var(--color-accent), var(--color-accent2), var(--color-offwhite2), var(--color-accent2),
-  var(--color-accent));
+  /* Modern Dark Glass Tokens */
+  --color-matteblack: #120E16;
+  --color-surface-dark: #1A1423;
+  --color-surface-card: rgba(255, 255, 255, 0.05);
+  --color-surface-border: rgba(255, 255, 255, 0.12);
+  --color-surface-hover: rgba(255, 255, 255, 0.10);
+
+  /* Section Transition Atmospheric Bases */
+  --color-apricot-deep: #251614;
+  --color-apricot-surface: #361F1A;
+  --color-magenta-deep: #260B1B;
+  --color-magenta-surface: #381028;
+
+  /* Local Fonts Assigned to Clear Roles */
+  --font-title: "Milligram", sans-serif;
+  --font-subtitle: "Mont", sans-serif;
+  --font-display: "Couture", sans-serif;
+  --font-display-bold: "Mont", sans-serif;
+  --font-heading: "Mont", sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* TWICE Signature Gradient */
+  --gradient-twice: linear-gradient(270deg, var(--color-accent), var(--color-accent2), var(--color-offwhite2), var(--color-accent2), var(--color-accent));
+  --gradient-dark-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 
   --animate-gradient-vibrant: gradientVibrant 3s linear infinite alternate;
 
   @keyframes gradientVibrant {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 200% 50%;
+    }
   }
 
   /* Rise animation for background */
   --animate-rise: rise 2s ease-out forwards;
 
   @keyframes rise {
-    0% { transform: translateY(100%); }
-    100% { transform: translateY(-20px); }
+    0% {
+      transform: translateY(100%);
+    }
+
+    100% {
+      transform: translateY(-20px);
+    }
   }
 
   @keyframes contentShift {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(40px); } /* turun 40px */
-}
+    0% {
+      transform: translateY(0);
+    }
 
---animate-content-shift: contentShift 1.5s ease-out forwards;
+    100% {
+      transform: translateY(40px);
+    }
+  }
 
+  --animate-content-shift: contentShift 1.5s ease-out forwards;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  background-color: #120E16;
+  color: #FAF9F6;
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: #120E16;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* Custom Modern Dark Glass Scrollbar */
+/* Firefox standard */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #120E16;
+}
+
+/* Webkit browsers (Chrome, Edge, Safari, Opera) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #120E16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  border: 2px solid #120E16;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5FA2;
+  /* TWICE Neon Magenta hover glow */
+}
+
+/* Utility to hide scrollbars on horizontal drag/swipe tracks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
