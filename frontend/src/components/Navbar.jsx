@@ -1,60 +1,67 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { assets } from '../assets/assets'
 
 const Navbar = () => {
   const navLinks = [
-    { name: 'Profile', path: '/' },
+    { name: 'Profile', path: '/profile' },
     { name: 'Discography', path: '/discography' },
     { name: 'Music Videos', path: '/' },
     { name: 'Gallery', path: '/' },
     { name: 'News', path: '/news' },
   ];
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const isHome = location.pathname === '/';
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      }
-      else {
-        setIsScrolled(false);
-      }
-    }
+      // Jarak scroll (dalam px) yang dibutuhkan hingga menu benar-benar sampai di atas
+      const maxScroll = 280;
+      const currentScroll = window.scrollY;
 
-    window.addEventListener('scroll', handleScroll);
+      // Membatasi nilai antara 0 (paling atas) hingga 1 (selesai transisi)
+      const progress = Math.min(Math.max(currentScroll / maxScroll, 0), 1);
+      setScrollProgress(progress);
+    };
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, [])
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const isHeroPosition = isHome && !isScrolled;
+  // Jika bukan di Home, paksa progress ke 1 (posisi navbar normal)
+  const effectiveProgress = isHomePage ? scrollProgress : 1;
+  const isScrolled = effectiveProgress > 0.99; // Background navbar muncul saat menu hampir sampai atas
+
+  // Hitung posisi Y secara dinamis: dari 42vh turun perlahan ke 0vh
+  const currentTranslateY = (1 - effectiveProgress) * 2;
 
   return (
-    <div className='fixed top-0 left-0 right-0 z-50 p-2 flex justify-center items-center transition-all duration-300 pointer-events-none'>
-      <div className={`w-300 p-2.5 flex justify-between items-center transition-all duration-500 pointer-events-auto
-        ${isScrolled ? 'bg-accent2 rounded-2xl shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
-
-        {/* Logo TWICE: Klik untuk kembali ke Home */}
-        <Link to='/' className={`flex space-x-10 ml-12 transition-all duration-500 ease-out
-            ${isHeroPosition
-            ? 'translate-y-[5vh] md:translate-y-[2vh]' // Menggeser ke bawah sejajar area tengah-bawah Hero
-            : 'translate-y-0' // Kembali sejajar dengan Logo di Navbar
-          }`}
+    <div className='fixed top-0 left-0 right-0 z-50 p-2 flex justify-center items-center pointer-events-none'>
+      <div
+        className={`w-300 p-2.5 flex justify-between rounded-2xl items-center transition-all duration-500 pointer-events-auto
+        ${isScrolled ? 'bg-accent2 rounded-2xl shadow-md backdrop-blur-sm' : 'bg-transparent ease-out'}`}
+      >
+        {/* Logo TWICE */}
+        <Link to='/' style={{
+          transform: `translateY(${currentTranslateY}vh)`,
+        }}
+          className='flex space-x-10 ml-12 will-change-transform'
         >
-          <img src={assets.Twicelogo} alt="Twice Logo" className='w-12 h-12 hover:scale-110 transition-transform duration-300' />
+          <img
+            src={assets.Twicelogo}
+            alt="Twice Logo"
+            className='w-12 h-12 hover:scale-110 transition-transform duration-300'
+          />
         </Link>
 
-        {/* Menu Navigasi Akan turun saat isHeroPosition true, dan naik (translate-y-0) saat di-scrol */}
-        <div className={`flex space-x-10 mr-12 transition-all duration-500 ease-out
-            ${isHeroPosition
-            ? 'translate-y-[5vh] md:translate-y-[2vh]' // Menggeser ke bawah sejajar area tengah-bawah Hero
-            : 'translate-y-0' // Kembali sejajar dengan Logo di Navbar
-          }`}
+        {/* Menu Navigasi: Bergerak real-time mengikuti scroll */}
+        <div
+          style={{
+            transform: `translateY(${currentTranslateY}vh)`,
+          }}
+          className='flex space-x-10 mr-12 will-change-transform'
         >
           {navLinks.map((item, index) => (
             <Link
@@ -67,7 +74,6 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-
       </div>
     </div>
   )
