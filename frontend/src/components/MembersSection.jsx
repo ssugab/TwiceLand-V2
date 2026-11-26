@@ -1,97 +1,6 @@
 import React, { useRef } from 'react'
-import nayeonImg from '../assets/images/Members/Nayeon-TEN.jpg'
-import jeongyeonImg from '../assets/images/Members/JY-TEN.jpg'
-import momoImg from '../assets/images/Members/Momo-TEN.jpg'
-import sanaImg from '../assets/images/Members/Sana-TEN.jpg'
-import jihyoImg from '../assets/images/Members/Jihyo-TEN.jpg'
-import minaImg from '../assets/images/Members/Mina-TEN.jpg'
-import dahyunImg from '../assets/images/Members/Dahyun-TEN.jpg'
-import chaeyoungImg from '../assets/images/Members/Chaeyoung-TEN.jpg'
-import tzuyuImg from '../assets/images/Members/Tzuyu-TEN.jpg'
-
-const membersData = [
-  {
-    name: 'Nayeon',
-    hangul: '나연',
-    role: 'Lead Vocalist, Lead Dancer, Center',
-    colorHex: '#81D4FA',
-    colorName: 'Sky Blue',
-    image: nayeonImg,
-    description: 'The bright and charismatic eldest member known for her energetic vocals, signature smile, and iconic solo anthems.'
-  },
-  {
-    name: 'Jeongyeon',
-    hangul: '정연',
-    role: 'Lead Vocalist',
-    colorHex: '#C5E1A5',
-    colorName: 'Yellow Green',
-    image: jeongyeonImg,
-    description: 'Recognized for her rock-solid live vocal stability, chic visual charm, and protective sisterly presence in TWICE.'
-  },
-  {
-    name: 'Momo',
-    hangul: '모모',
-    role: 'Main Dancer, Sub Vocalist, Sub Rapper',
-    colorHex: '#FF80AB',
-    colorName: 'Pink',
-    image: momoImg,
-    description: 'TWICE’s renowned dance machine celebrated for razor-sharp choreography, fluid precision, and MISAMO power.'
-  },
-  {
-    name: 'Sana',
-    hangul: '사나',
-    role: 'Sub Vocalist',
-    colorHex: '#B085F5',
-    colorName: 'Purple',
-    image: sanaImg,
-    description: 'Captivating, bubbly, and charismatic with viral trendsetting lines and alluring stage expressions.'
-  },
-  {
-    name: 'Jihyo',
-    hangul: '지효',
-    role: 'Leader, Main Vocalist',
-    colorHex: '#FFB74D',
-    colorName: 'Apricot',
-    image: jihyoImg,
-    description: 'The passionate leader and anchor with powerhouse soulful vocals, ten-year trainee discipline, and commanding presence.'
-  },
-  {
-    name: 'Mina',
-    hangul: '미나',
-    role: 'Main Dancer, Sub Vocalist',
-    colorHex: '#80CBC4',
-    colorName: 'Mint',
-    image: minaImg,
-    description: 'The elegant black swan of TWICE, combining 11 years of ballet training with a calm, enchanting vocal timbre.'
-  },
-  {
-    name: 'Dahyun',
-    hangul: '다현',
-    role: 'Lead Rapper, Sub Vocalist',
-    colorHex: '#FFFFFF',
-    colorName: 'White',
-    image: dahyunImg,
-    description: 'Known for her wit, variety charisma, crisp rap rhythm, eagle-eyed fan engagement, and heartfelt songwriting.'
-  },
-  {
-    name: 'Chaeyoung',
-    hangul: '채영',
-    role: 'Main Rapper, Sub Vocalist',
-    colorHex: '#E53935',
-    colorName: 'Red',
-    image: chaeyoungImg,
-    description: 'Free-spirited artistic soul who writes verses, draws, designs album themes, and delivers distinctive hip-hop flair.'
-  },
-  {
-    name: 'Tzuyu',
-    hangul: '쯔위',
-    role: 'Lead Dancer, Sub Vocalist, Visual, Maknae',
-    colorHex: '#1E88E5',
-    colorName: 'Blue',
-    image: tzuyuImg,
-    description: 'The beloved youngest member admired worldwide for statuesque grace, soothing vocals, and her solo record "abouTZU".'
-  }
-]
+import { getMembers } from '../services/memberApi';
+import { useApi } from '../hooks/useApi';
 
 /**
  * MembersSection Component
@@ -106,12 +15,17 @@ const membersData = [
 const MembersSection = () => {
   const scrollContainerRef = useRef(null)
 
+  const { data: members, loading, error } = useApi(getMembers)
+
   const handleScroll = (direction) => {
     if (scrollContainerRef.current) {
       const scrollAmount = direction === 'left' ? -380 : 380
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
   }
+
+  if (error) return <p className="text-center text-red-400 py-12">Gagal memuat members.</p>
+  if (!members?.length) return <p className="text-center py-12">Belum ada member.</p>
 
   return (
     <section id="members" className="relative overflow-hidden bg-matteblack pt-32 pb-48 px-4 sm:px-6 md:px-12">
@@ -164,15 +78,16 @@ const MembersSection = () => {
           className="flex gap-8 overflow-x-auto pb-8 pt-2 scroll-smooth no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {membersData.map((member, index) => (
+          {members.map((member, index) => (
             <div
-              key={member.name}
-              className="snap-start shrink-0 w-[290px] sm:w-[250px] rounded-3xl bg-white/[0.06] hover:bg-white/[0.10] border border-white/20 hover:border-accent/60 backdrop-blur-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2  flex flex-col justify-between"
+              key={member.id || member.name}
+              style={{ '--member-color': member.color_hex || '#FF5FA2' }}
+              className="snap-start shrink-0 w-[290px] sm:w-[270px] rounded-3xl bg-white/[0.06] hover:bg-white/[0.10] border border-[var(--member-color)]/50 hover:border-[var(--member-color)] hover:shadow-[0_0_20px_color-mix(in_srgb,var(--member-color)_35%,transparent)] backdrop-blur-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between cursor-pointer border-r-6"
             >
               {/* Member Visual Box */}
               <div className="relative h-80 w-full overflow-hidden bg-white/5">
                 <img
-                  src={member.image}
+                  src={member.image_url}
                   alt={member.name}
                   loading="lazy"
                   className="w-full h-full object-cover object-top filter brightness-[0.92] group-hover:scale-105 group-hover:brightness-100 transition-all duration-500 ease-out"
@@ -181,25 +96,23 @@ const MembersSection = () => {
                 {/* Gradient Scrim for crisp readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-matteblack/95 via-transparent to-transparent pointer-events-none" />
 
-                {/* Number Badge */}
+                {/* Number Badge 
                 <span className="absolute top-4 left-4 text-xs font-heading px-3 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/20 text-offwhite/90 font-bold">
                   #{String(index + 1).padStart(2, '0')}
                 </span>
 
-                {/* Official Member Color Pill */}
+                {/* Official Member Color Pill
                 <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-matteblack/70 backdrop-blur-md border border-white/20">
                   <span
                     className="w-2.5 h-2.5 rounded-full border border-black/30"
-                    style={{ backgroundColor: member.colorHex }}
+                    style={{ backgroundColor: member.color_hex }}
                   />
-                  <span className="text-[10px] font-heading text-offwhite/90 uppercase font-bold">
-                    {member.colorName}
-                  </span>
-                </div>
+                </div> */}
 
                 {/* Hangul Accent Overlay */}
-                <div className="absolute bottom-2 right-4 text-4xl font-title text-white/15 select-none pointer-events-none">
-                  {member.hangul}
+                <div className="absolute bottom-2 right-4 text-4xl font-title text-white/15 select-none pointer-events-none"
+                  style={{ color: member.color_hex }}>
+                  {member.korean_name}
                 </div>
               </div>
 
@@ -211,16 +124,18 @@ const MembersSection = () => {
                       {member.name}
                     </h3>
                     <span className="text-sm font-heading text-accent2 font-bold">
-                      {member.hangul}
+                      {member.korean_name}
                     </span>
                   </div>
 
                   <p className="text-xs font-heading text-accent2/90 mb-3 tracking-wide font-bold">
-                    {member.role}
+                    {Array.isArray(member.positions)
+                      ? member.positions.join(' • ')
+                      : member.position}
                   </p>
 
                   <p className="text-xs sm:text-sm text-offwhite/75 font-body leading-relaxed line-clamp-3">
-                    {member.description}
+                    {member.bio}
                   </p>
                 </div>
 
