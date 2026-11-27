@@ -1,25 +1,23 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
 import MainLayout from './components/Layouts/MainLayout';
 import HomePage from './pages/HomePage';
-import Profile from './pages/Profile';
 import Discography from './pages/Discography';
+import News from './pages/News';
+import NotFound from './pages/NotFound';
 
 function App() {
-
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/discography" element={<Discography />} />
-
+        <Route path="/news" element={<News />} />
       </Route>
 
+      <Route path='*' element={<NotFound />}></Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
