@@ -1,0 +1,69 @@
+/* frontend/src/components/CandyBongCursor.css */
+
+@media (pointer: fine) {
+
+    body,
+    a,
+    button {
+        cursor: none !important;
+    }
+}
+
+.candybong-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+}
+
+/* Cincin Luar CandyBong Z dengan Lubang Hitam di Tengah */
+.candybong-ring {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Cincin gradasi luar + lubang hitam pekat (#0d0d0d) di dalam */
+    border: 5px solid transparent;
+    background:
+        radial-gradient(circle, #0d0d0d 55%, #1a1a1a 100%) padding-box,
+        conic-gradient(from 0deg, #FF5FA2, #FCC89B, #FF5FA2) border-box;
+
+    box-shadow:
+        0 0 12px rgba(255, 95, 162, 0.75),
+        inset 0 0 6px rgba(0, 0, 0, 0.9);
+    animation: candybong-spin 2.2s linear infinite;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Titik LED kecil di pusat lubang hitam agar titik klik terlihat presisi */
+.candybong-inner-core {
+    width: 5px;
+    height: 5px;
+    border-radius: 24%;
+    background-color: #ffffff;
+    box-shadow: 0 0 6px #FCC89B, 0 0 10px #FF5FA2;
+}
+
+/* Efek saat hover di elemen yang bisa diklik */
+.candybong-cursor-wrapper.is-hovering .candybong-ring {
+    transform: scale(1.45);
+    box-shadow:
+        0 0 18px rgba(255, 95, 162, 0.95),
+        inset 0 0 8px rgba(0, 0, 0, 0.95);
+}
+
+@keyframes candybong-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
